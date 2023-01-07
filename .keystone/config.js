@@ -29,8 +29,65 @@ var import_core2 = require("@keystone-6/core");
 var import_core = require("@keystone-6/core");
 var import_access = require("@keystone-6/core/access");
 var import_fields = require("@keystone-6/core/fields");
-var import_fields_document = require("@keystone-6/fields-document");
+var autoIncrementInt = () => (0, import_fields.integer)({
+  defaultValue: 0,
+  validation: { isRequired: true },
+  graphql: {
+    create: {
+      isNonNull: false
+    }
+  }
+});
+var dateType = () => (0, import_fields.calendarDay)({
+  validation: { isRequired: true },
+  graphql: {
+    create: {
+      isNonNull: true
+    }
+  }
+});
 var lists = {
+  Kandang: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      name: (0, import_fields.text)({ validation: { isRequired: true } }),
+      periodes: (0, import_fields.relationship)({ ref: "Periode", many: true })
+    }
+  }),
+  Periode: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      number: autoIncrementInt(),
+      startAt: dateType(),
+      kandang: (0, import_fields.relationship)({ ref: "Kandang" })
+    },
+    hooks: {
+      resolveInput: async ({ resolvedData, context }) => {
+        const kandangId = resolvedData.kandang.connect.id;
+        if (!kandangId) {
+          return resolvedData;
+        }
+        try {
+          const numberOfPeriode = await context.db.Periode.count({
+            where: {
+              kandang: {
+                id: {
+                  equals: kandangId
+                }
+              }
+            }
+          });
+          return {
+            ...resolvedData,
+            number: numberOfPeriode + 1
+          };
+        } catch (err) {
+          console.log(err);
+        }
+        return resolvedData;
+      }
+    }
+  }),
   User: (0, import_core.list)({
     access: import_access.allowAll,
     fields: {
@@ -40,61 +97,9 @@ var lists = {
         isIndexed: "unique"
       }),
       password: (0, import_fields.password)({ validation: { isRequired: true } }),
-      posts: (0, import_fields.relationship)({ ref: "Post.author", many: true }),
       createdAt: (0, import_fields.timestamp)({
         defaultValue: { kind: "now" }
       })
-    }
-  }),
-  Post: (0, import_core.list)({
-    access: import_access.allowAll,
-    fields: {
-      title: (0, import_fields.text)({ validation: { isRequired: true } }),
-      content: (0, import_fields_document.document)({
-        formatting: true,
-        layouts: [
-          [1, 1],
-          [1, 1, 1],
-          [2, 1],
-          [1, 2],
-          [1, 2, 1]
-        ],
-        links: true,
-        dividers: true
-      }),
-      author: (0, import_fields.relationship)({
-        ref: "User.posts",
-        ui: {
-          displayMode: "cards",
-          cardFields: ["name", "email"],
-          inlineEdit: { fields: ["name", "email"] },
-          linkToItem: true,
-          inlineConnect: true
-        },
-        many: false
-      }),
-      tags: (0, import_fields.relationship)({
-        ref: "Tag.posts",
-        many: true,
-        ui: {
-          displayMode: "cards",
-          cardFields: ["name"],
-          inlineEdit: { fields: ["name"] },
-          linkToItem: true,
-          inlineConnect: true,
-          inlineCreate: { fields: ["name"] }
-        }
-      })
-    }
-  }),
-  Tag: (0, import_core.list)({
-    access: import_access.allowAll,
-    ui: {
-      isHidden: true
-    },
-    fields: {
-      name: (0, import_fields.text)(),
-      posts: (0, import_fields.relationship)({ ref: "Post.tags", many: true })
     }
   })
 };
@@ -126,8 +131,11 @@ var session = (0, import_session.statelessSessions)({
 var keystone_default = withAuth(
   (0, import_core2.config)({
     db: {
-      provider: "sqlite",
-      url: "file:./keystone.db"
+      provider: "postgresql",
+      url: "postgres://postgres:postgres@localhost:5432/soka",
+      enableLogging: true,
+      useMigrations: true,
+      idField: { kind: "uuid" }
     },
     lists,
     session

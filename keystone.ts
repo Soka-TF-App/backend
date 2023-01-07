@@ -15,15 +15,16 @@ import { lists } from './schema';
 import { withAuth, session } from './auth';
 
 export default withAuth(
-  config({
-    db: {
-      // we're using sqlite for the fastest startup experience
-      //   for more information on what database might be appropriate for you
-      //   see https://keystonejs.com/docs/guides/choosing-a-database#title
-      provider: 'sqlite',
-      url: 'file:./keystone.db',
-    },
-    lists,
-    session,
-  })
+    config({
+        db: {
+            provider: 'postgresql',
+            url: 'postgres://postgres:postgres@localhost:5432/soka',
+            // Optional advanced configuration
+            enableLogging: true,
+            useMigrations: true,
+            idField: { kind: 'uuid' },
+        },
+        lists,
+        session,
+    })
 );
