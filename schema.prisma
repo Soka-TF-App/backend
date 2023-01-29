@@ -20,14 +20,125 @@ model Kandang {
 }
 
 model Periode {
-  id                    String    @id @default(uuid()) @postgresql.Uuid
-  number                Int       @default(0)
-  startAt               DateTime  @postgresql.Date
-  kandang               Kandang?  @relation("Periode_kandang", fields: [kandangId], references: [id])
-  kandangId             String?   @map("kandang") @postgresql.Uuid
-  from_Kandang_periodes Kandang[] @relation("Kandang_periodes")
+  id                           String            @id @default(uuid()) @postgresql.Uuid
+  number                       Int               @default(0)
+  startAt                      DateTime          @postgresql.Date
+  kandang                      Kandang?          @relation("Periode_kandang", fields: [kandangId], references: [id])
+  kandangId                    String?           @map("kandang") @postgresql.Uuid
+  from_Kandang_periodes        Kandang[]         @relation("Kandang_periodes")
+  from_DataDOC_periode         DataDOC[]         @relation("DataDOC_periode")
+  from_DataWeekly_periode      DataWeekly[]      @relation("DataWeekly_periode")
+  from_SampleWeekly_periode    SampleWeekly[]    @relation("SampleWeekly_periode")
+  from_DataDaily_periode       DataDaily[]       @relation("DataDaily_periode")
+  from_DataPanen_periode       DataPanen[]       @relation("DataPanen_periode")
+  from_DataPenjarangan_periode DataPenjarangan[] @relation("DataPenjarangan_periode")
+  from_DataSapronak_periode    DataSapronak[]    @relation("DataSapronak_periode")
+  from_DataNonSapronak_periode DataNonSapronak[] @relation("DataNonSapronak_periode")
 
   @@index([kandangId])
+}
+
+model DataDOC {
+  id          String      @id @default(uuid()) @postgresql.Uuid
+  periode     Periode?    @relation("DataDOC_periode", fields: [periodeId], references: [id])
+  periodeId   String?     @map("periode") @postgresql.Uuid
+  jumlahDOC   Int
+  tipeDOC     String      @default("")
+  kematianDOC Int
+  bobotBox    Int
+  kodeBox     String      @default("")
+  samples     SampleDOC[] @relation("DataDOC_samples")
+
+  @@index([periodeId])
+}
+
+model SampleDOC {
+  id                   String    @id @default(uuid()) @postgresql.Uuid
+  bobot                Int
+  from_DataDOC_samples DataDOC[] @relation("DataDOC_samples")
+}
+
+model DataWeekly {
+  id        String         @id @default(uuid()) @postgresql.Uuid
+  periode   Periode?       @relation("DataWeekly_periode", fields: [periodeId], references: [id])
+  periodeId String?        @map("periode") @postgresql.Uuid
+  lantai    Int
+  sekat     Int
+  samples   SampleWeekly[] @relation("DataWeekly_samples")
+
+  @@index([periodeId])
+}
+
+model SampleWeekly {
+  id                      String       @id @default(uuid()) @postgresql.Uuid
+  periode                 Periode?     @relation("SampleWeekly_periode", fields: [periodeId], references: [id])
+  periodeId               String?      @map("periode") @postgresql.Uuid
+  bobot                   Int
+  from_DataWeekly_samples DataWeekly[] @relation("DataWeekly_samples")
+
+  @@index([periodeId])
+}
+
+model DataDaily {
+  id          String             @id @default(uuid()) @postgresql.Uuid
+  periode     Periode?           @relation("DataDaily_periode", fields: [periodeId], references: [id])
+  periodeId   String?            @map("periode") @postgresql.Uuid
+  waktu       DataDailyWaktuType @default(siang)
+  jumlahMati  Int
+  jumlahAfkir Int
+
+  @@index([periodeId])
+}
+
+model DataPanen {
+  id            String   @id @default(uuid()) @postgresql.Uuid
+  periode       Periode? @relation("DataPanen_periode", fields: [periodeId], references: [id])
+  periodeId     String?  @map("periode") @postgresql.Uuid
+  namaPelanggan String   @default("")
+  noSPPA        String   @default("")
+  noTruck       String   @default("")
+  namaPengemudi String   @default("")
+  jumlahAyam    Int
+  bobot         Int
+
+  @@index([periodeId])
+}
+
+model DataPenjarangan {
+  id            String   @id @default(uuid()) @postgresql.Uuid
+  periode       Periode? @relation("DataPenjarangan_periode", fields: [periodeId], references: [id])
+  periodeId     String?  @map("periode") @postgresql.Uuid
+  namaPelanggan String   @default("")
+  noSPPA        String   @default("")
+  noTruck       String   @default("")
+  namaPengemudi String   @default("")
+  jumlahAyam    Int
+  bobot         Int
+
+  @@index([periodeId])
+}
+
+model DataSapronak {
+  id          String   @id @default(uuid()) @postgresql.Uuid
+  periode     Periode? @relation("DataSapronak_periode", fields: [periodeId], references: [id])
+  periodeId   String?  @map("periode") @postgresql.Uuid
+  jumlahPakan Int
+  namaObat    String   @default("")
+  jumlahObat  Int
+  satuan      String   @default("")
+
+  @@index([periodeId])
+}
+
+model DataNonSapronak {
+  id        String   @id @default(uuid()) @postgresql.Uuid
+  periode   Periode? @relation("DataNonSapronak_periode", fields: [periodeId], references: [id])
+  periodeId String?  @map("periode") @postgresql.Uuid
+  jenis     String   @default("")
+  jumlah    Int
+  satuan    String   @default("")
+
+  @@index([periodeId])
 }
 
 model User {
@@ -36,4 +147,9 @@ model User {
   email     String    @unique @default("")
   password  String
   createdAt DateTime? @default(now())
+}
+
+enum DataDailyWaktuType {
+  siang
+  malam
 }

@@ -188,6 +188,532 @@ input KandangRelateToOneForCreateInput {
   connect: KandangWhereUniqueInput
 }
 
+type DataDOC {
+  id: ID!
+  periode: Periode
+  jumlahDOC: Int
+  tipeDOC: String
+  kematianDOC: Int
+  bobotBox: Int
+  kodeBox: String
+  samples(where: SampleDOCWhereInput! = {}, orderBy: [SampleDOCOrderByInput!]! = [], take: Int, skip: Int! = 0): [SampleDOC!]
+  samplesCount(where: SampleDOCWhereInput! = {}): Int
+}
+
+input DataDOCWhereUniqueInput {
+  id: ID
+}
+
+input DataDOCWhereInput {
+  AND: [DataDOCWhereInput!]
+  OR: [DataDOCWhereInput!]
+  NOT: [DataDOCWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  jumlahDOC: IntFilter
+  tipeDOC: StringFilter
+  kematianDOC: IntFilter
+  bobotBox: IntFilter
+  kodeBox: StringFilter
+  samples: SampleDOCManyRelationFilter
+}
+
+input SampleDOCManyRelationFilter {
+  every: SampleDOCWhereInput
+  some: SampleDOCWhereInput
+  none: SampleDOCWhereInput
+}
+
+input DataDOCOrderByInput {
+  id: OrderDirection
+  jumlahDOC: OrderDirection
+  tipeDOC: OrderDirection
+  kematianDOC: OrderDirection
+  bobotBox: OrderDirection
+  kodeBox: OrderDirection
+}
+
+input DataDOCUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  jumlahDOC: Int
+  tipeDOC: String
+  kematianDOC: Int
+  bobotBox: Int
+  kodeBox: String
+  samples: SampleDOCRelateToManyForUpdateInput
+}
+
+input PeriodeRelateToOneForUpdateInput {
+  create: PeriodeCreateInput
+  connect: PeriodeWhereUniqueInput
+  disconnect: Boolean
+}
+
+input SampleDOCRelateToManyForUpdateInput {
+  disconnect: [SampleDOCWhereUniqueInput!]
+  set: [SampleDOCWhereUniqueInput!]
+  create: [SampleDOCCreateInput!]
+  connect: [SampleDOCWhereUniqueInput!]
+}
+
+input DataDOCUpdateArgs {
+  where: DataDOCWhereUniqueInput!
+  data: DataDOCUpdateInput!
+}
+
+input DataDOCCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  jumlahDOC: Int
+  tipeDOC: String
+  kematianDOC: Int
+  bobotBox: Int
+  kodeBox: String
+  samples: SampleDOCRelateToManyForCreateInput
+}
+
+input PeriodeRelateToOneForCreateInput {
+  create: PeriodeCreateInput
+  connect: PeriodeWhereUniqueInput
+}
+
+input SampleDOCRelateToManyForCreateInput {
+  create: [SampleDOCCreateInput!]
+  connect: [SampleDOCWhereUniqueInput!]
+}
+
+type SampleDOC {
+  id: ID!
+  bobot: Int
+}
+
+input SampleDOCWhereUniqueInput {
+  id: ID
+}
+
+input SampleDOCWhereInput {
+  AND: [SampleDOCWhereInput!]
+  OR: [SampleDOCWhereInput!]
+  NOT: [SampleDOCWhereInput!]
+  id: IDFilter
+  bobot: IntFilter
+}
+
+input SampleDOCOrderByInput {
+  id: OrderDirection
+  bobot: OrderDirection
+}
+
+input SampleDOCUpdateInput {
+  bobot: Int
+}
+
+input SampleDOCUpdateArgs {
+  where: SampleDOCWhereUniqueInput!
+  data: SampleDOCUpdateInput!
+}
+
+input SampleDOCCreateInput {
+  bobot: Int
+}
+
+type DataWeekly {
+  id: ID!
+  periode: Periode
+  lantai: Int
+  sekat: Int
+  samples(where: SampleWeeklyWhereInput! = {}, orderBy: [SampleWeeklyOrderByInput!]! = [], take: Int, skip: Int! = 0): [SampleWeekly!]
+  samplesCount(where: SampleWeeklyWhereInput! = {}): Int
+}
+
+input DataWeeklyWhereUniqueInput {
+  id: ID
+}
+
+input DataWeeklyWhereInput {
+  AND: [DataWeeklyWhereInput!]
+  OR: [DataWeeklyWhereInput!]
+  NOT: [DataWeeklyWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  lantai: IntFilter
+  sekat: IntFilter
+  samples: SampleWeeklyManyRelationFilter
+}
+
+input SampleWeeklyManyRelationFilter {
+  every: SampleWeeklyWhereInput
+  some: SampleWeeklyWhereInput
+  none: SampleWeeklyWhereInput
+}
+
+input DataWeeklyOrderByInput {
+  id: OrderDirection
+  lantai: OrderDirection
+  sekat: OrderDirection
+}
+
+input DataWeeklyUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  lantai: Int
+  sekat: Int
+  samples: SampleWeeklyRelateToManyForUpdateInput
+}
+
+input SampleWeeklyRelateToManyForUpdateInput {
+  disconnect: [SampleWeeklyWhereUniqueInput!]
+  set: [SampleWeeklyWhereUniqueInput!]
+  create: [SampleWeeklyCreateInput!]
+  connect: [SampleWeeklyWhereUniqueInput!]
+}
+
+input DataWeeklyUpdateArgs {
+  where: DataWeeklyWhereUniqueInput!
+  data: DataWeeklyUpdateInput!
+}
+
+input DataWeeklyCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  lantai: Int
+  sekat: Int
+  samples: SampleWeeklyRelateToManyForCreateInput
+}
+
+input SampleWeeklyRelateToManyForCreateInput {
+  create: [SampleWeeklyCreateInput!]
+  connect: [SampleWeeklyWhereUniqueInput!]
+}
+
+type SampleWeekly {
+  id: ID!
+  periode: Periode
+  bobot: Int
+}
+
+input SampleWeeklyWhereUniqueInput {
+  id: ID
+}
+
+input SampleWeeklyWhereInput {
+  AND: [SampleWeeklyWhereInput!]
+  OR: [SampleWeeklyWhereInput!]
+  NOT: [SampleWeeklyWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  bobot: IntFilter
+}
+
+input SampleWeeklyOrderByInput {
+  id: OrderDirection
+  bobot: OrderDirection
+}
+
+input SampleWeeklyUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  bobot: Int
+}
+
+input SampleWeeklyUpdateArgs {
+  where: SampleWeeklyWhereUniqueInput!
+  data: SampleWeeklyUpdateInput!
+}
+
+input SampleWeeklyCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  bobot: Int
+}
+
+type DataDaily {
+  id: ID!
+  periode: Periode
+  waktu: DataDailyWaktuType
+  jumlahMati: Int
+  jumlahAfkir: Int
+}
+
+enum DataDailyWaktuType {
+  siang
+  malam
+}
+
+input DataDailyWhereUniqueInput {
+  id: ID
+}
+
+input DataDailyWhereInput {
+  AND: [DataDailyWhereInput!]
+  OR: [DataDailyWhereInput!]
+  NOT: [DataDailyWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  waktu: DataDailyWaktuTypeNullableFilter
+  jumlahMati: IntFilter
+  jumlahAfkir: IntFilter
+}
+
+input DataDailyWaktuTypeNullableFilter {
+  equals: DataDailyWaktuType
+  in: [DataDailyWaktuType!]
+  notIn: [DataDailyWaktuType!]
+  not: DataDailyWaktuTypeNullableFilter
+}
+
+input DataDailyOrderByInput {
+  id: OrderDirection
+  waktu: OrderDirection
+  jumlahMati: OrderDirection
+  jumlahAfkir: OrderDirection
+}
+
+input DataDailyUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  waktu: DataDailyWaktuType
+  jumlahMati: Int
+  jumlahAfkir: Int
+}
+
+input DataDailyUpdateArgs {
+  where: DataDailyWhereUniqueInput!
+  data: DataDailyUpdateInput!
+}
+
+input DataDailyCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  waktu: DataDailyWaktuType
+  jumlahMati: Int
+  jumlahAfkir: Int
+}
+
+type DataPanen {
+  id: ID!
+  periode: Periode
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+input DataPanenWhereUniqueInput {
+  id: ID
+}
+
+input DataPanenWhereInput {
+  AND: [DataPanenWhereInput!]
+  OR: [DataPanenWhereInput!]
+  NOT: [DataPanenWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  namaPelanggan: StringFilter
+  noSPPA: StringFilter
+  noTruck: StringFilter
+  namaPengemudi: StringFilter
+  jumlahAyam: IntFilter
+  bobot: IntFilter
+}
+
+input DataPanenOrderByInput {
+  id: OrderDirection
+  namaPelanggan: OrderDirection
+  noSPPA: OrderDirection
+  noTruck: OrderDirection
+  namaPengemudi: OrderDirection
+  jumlahAyam: OrderDirection
+  bobot: OrderDirection
+}
+
+input DataPanenUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+input DataPanenUpdateArgs {
+  where: DataPanenWhereUniqueInput!
+  data: DataPanenUpdateInput!
+}
+
+input DataPanenCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+type DataPenjarangan {
+  id: ID!
+  periode: Periode
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+input DataPenjaranganWhereUniqueInput {
+  id: ID
+}
+
+input DataPenjaranganWhereInput {
+  AND: [DataPenjaranganWhereInput!]
+  OR: [DataPenjaranganWhereInput!]
+  NOT: [DataPenjaranganWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  namaPelanggan: StringFilter
+  noSPPA: StringFilter
+  noTruck: StringFilter
+  namaPengemudi: StringFilter
+  jumlahAyam: IntFilter
+  bobot: IntFilter
+}
+
+input DataPenjaranganOrderByInput {
+  id: OrderDirection
+  namaPelanggan: OrderDirection
+  noSPPA: OrderDirection
+  noTruck: OrderDirection
+  namaPengemudi: OrderDirection
+  jumlahAyam: OrderDirection
+  bobot: OrderDirection
+}
+
+input DataPenjaranganUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+input DataPenjaranganUpdateArgs {
+  where: DataPenjaranganWhereUniqueInput!
+  data: DataPenjaranganUpdateInput!
+}
+
+input DataPenjaranganCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  namaPelanggan: String
+  noSPPA: String
+  noTruck: String
+  namaPengemudi: String
+  jumlahAyam: Int
+  bobot: Int
+}
+
+type DataSapronak {
+  id: ID!
+  periode: Periode
+  jumlahPakan: Int
+  namaObat: String
+  jumlahObat: Int
+  satuan: String
+}
+
+input DataSapronakWhereUniqueInput {
+  id: ID
+}
+
+input DataSapronakWhereInput {
+  AND: [DataSapronakWhereInput!]
+  OR: [DataSapronakWhereInput!]
+  NOT: [DataSapronakWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  jumlahPakan: IntFilter
+  namaObat: StringFilter
+  jumlahObat: IntFilter
+  satuan: StringFilter
+}
+
+input DataSapronakOrderByInput {
+  id: OrderDirection
+  jumlahPakan: OrderDirection
+  namaObat: OrderDirection
+  jumlahObat: OrderDirection
+  satuan: OrderDirection
+}
+
+input DataSapronakUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  jumlahPakan: Int
+  namaObat: String
+  jumlahObat: Int
+  satuan: String
+}
+
+input DataSapronakUpdateArgs {
+  where: DataSapronakWhereUniqueInput!
+  data: DataSapronakUpdateInput!
+}
+
+input DataSapronakCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  jumlahPakan: Int
+  namaObat: String
+  jumlahObat: Int
+  satuan: String
+}
+
+type DataNonSapronak {
+  id: ID!
+  periode: Periode
+  jenis: String
+  jumlah: Int
+  satuan: String
+}
+
+input DataNonSapronakWhereUniqueInput {
+  id: ID
+}
+
+input DataNonSapronakWhereInput {
+  AND: [DataNonSapronakWhereInput!]
+  OR: [DataNonSapronakWhereInput!]
+  NOT: [DataNonSapronakWhereInput!]
+  id: IDFilter
+  periode: PeriodeWhereInput
+  jenis: StringFilter
+  jumlah: IntFilter
+  satuan: StringFilter
+}
+
+input DataNonSapronakOrderByInput {
+  id: OrderDirection
+  jenis: OrderDirection
+  jumlah: OrderDirection
+  satuan: OrderDirection
+}
+
+input DataNonSapronakUpdateInput {
+  periode: PeriodeRelateToOneForUpdateInput
+  jenis: String
+  jumlah: Int
+  satuan: String
+}
+
+input DataNonSapronakUpdateArgs {
+  where: DataNonSapronakWhereUniqueInput!
+  data: DataNonSapronakUpdateInput!
+}
+
+input DataNonSapronakCreateInput {
+  periode: PeriodeRelateToOneForCreateInput
+  jenis: String
+  jumlah: Int
+  satuan: String
+}
+
 type User {
   id: ID!
   name: String
@@ -272,6 +798,60 @@ type Mutation {
   updatePeriodes(data: [PeriodeUpdateArgs!]!): [Periode]
   deletePeriode(where: PeriodeWhereUniqueInput!): Periode
   deletePeriodes(where: [PeriodeWhereUniqueInput!]!): [Periode]
+  createDataDOC(data: DataDOCCreateInput!): DataDOC
+  createDataDOCS(data: [DataDOCCreateInput!]!): [DataDOC]
+  updateDataDOC(where: DataDOCWhereUniqueInput!, data: DataDOCUpdateInput!): DataDOC
+  updateDataDOCS(data: [DataDOCUpdateArgs!]!): [DataDOC]
+  deleteDataDOC(where: DataDOCWhereUniqueInput!): DataDOC
+  deleteDataDOCS(where: [DataDOCWhereUniqueInput!]!): [DataDOC]
+  createSampleDOC(data: SampleDOCCreateInput!): SampleDOC
+  createSampleDOCS(data: [SampleDOCCreateInput!]!): [SampleDOC]
+  updateSampleDOC(where: SampleDOCWhereUniqueInput!, data: SampleDOCUpdateInput!): SampleDOC
+  updateSampleDOCS(data: [SampleDOCUpdateArgs!]!): [SampleDOC]
+  deleteSampleDOC(where: SampleDOCWhereUniqueInput!): SampleDOC
+  deleteSampleDOCS(where: [SampleDOCWhereUniqueInput!]!): [SampleDOC]
+  createDataWeekly(data: DataWeeklyCreateInput!): DataWeekly
+  createDataWeeklies(data: [DataWeeklyCreateInput!]!): [DataWeekly]
+  updateDataWeekly(where: DataWeeklyWhereUniqueInput!, data: DataWeeklyUpdateInput!): DataWeekly
+  updateDataWeeklies(data: [DataWeeklyUpdateArgs!]!): [DataWeekly]
+  deleteDataWeekly(where: DataWeeklyWhereUniqueInput!): DataWeekly
+  deleteDataWeeklies(where: [DataWeeklyWhereUniqueInput!]!): [DataWeekly]
+  createSampleWeekly(data: SampleWeeklyCreateInput!): SampleWeekly
+  createSampleWeeklies(data: [SampleWeeklyCreateInput!]!): [SampleWeekly]
+  updateSampleWeekly(where: SampleWeeklyWhereUniqueInput!, data: SampleWeeklyUpdateInput!): SampleWeekly
+  updateSampleWeeklies(data: [SampleWeeklyUpdateArgs!]!): [SampleWeekly]
+  deleteSampleWeekly(where: SampleWeeklyWhereUniqueInput!): SampleWeekly
+  deleteSampleWeeklies(where: [SampleWeeklyWhereUniqueInput!]!): [SampleWeekly]
+  createDataDaily(data: DataDailyCreateInput!): DataDaily
+  createDataDailies(data: [DataDailyCreateInput!]!): [DataDaily]
+  updateDataDaily(where: DataDailyWhereUniqueInput!, data: DataDailyUpdateInput!): DataDaily
+  updateDataDailies(data: [DataDailyUpdateArgs!]!): [DataDaily]
+  deleteDataDaily(where: DataDailyWhereUniqueInput!): DataDaily
+  deleteDataDailies(where: [DataDailyWhereUniqueInput!]!): [DataDaily]
+  createDataPanen(data: DataPanenCreateInput!): DataPanen
+  createDataPanens(data: [DataPanenCreateInput!]!): [DataPanen]
+  updateDataPanen(where: DataPanenWhereUniqueInput!, data: DataPanenUpdateInput!): DataPanen
+  updateDataPanens(data: [DataPanenUpdateArgs!]!): [DataPanen]
+  deleteDataPanen(where: DataPanenWhereUniqueInput!): DataPanen
+  deleteDataPanens(where: [DataPanenWhereUniqueInput!]!): [DataPanen]
+  createDataPenjarangan(data: DataPenjaranganCreateInput!): DataPenjarangan
+  createDataPenjarangans(data: [DataPenjaranganCreateInput!]!): [DataPenjarangan]
+  updateDataPenjarangan(where: DataPenjaranganWhereUniqueInput!, data: DataPenjaranganUpdateInput!): DataPenjarangan
+  updateDataPenjarangans(data: [DataPenjaranganUpdateArgs!]!): [DataPenjarangan]
+  deleteDataPenjarangan(where: DataPenjaranganWhereUniqueInput!): DataPenjarangan
+  deleteDataPenjarangans(where: [DataPenjaranganWhereUniqueInput!]!): [DataPenjarangan]
+  createDataSapronak(data: DataSapronakCreateInput!): DataSapronak
+  createDataSapronaks(data: [DataSapronakCreateInput!]!): [DataSapronak]
+  updateDataSapronak(where: DataSapronakWhereUniqueInput!, data: DataSapronakUpdateInput!): DataSapronak
+  updateDataSapronaks(data: [DataSapronakUpdateArgs!]!): [DataSapronak]
+  deleteDataSapronak(where: DataSapronakWhereUniqueInput!): DataSapronak
+  deleteDataSapronaks(where: [DataSapronakWhereUniqueInput!]!): [DataSapronak]
+  createDataNonSapronak(data: DataNonSapronakCreateInput!): DataNonSapronak
+  createDataNonSapronaks(data: [DataNonSapronakCreateInput!]!): [DataNonSapronak]
+  updateDataNonSapronak(where: DataNonSapronakWhereUniqueInput!, data: DataNonSapronakUpdateInput!): DataNonSapronak
+  updateDataNonSapronaks(data: [DataNonSapronakUpdateArgs!]!): [DataNonSapronak]
+  deleteDataNonSapronak(where: DataNonSapronakWhereUniqueInput!): DataNonSapronak
+  deleteDataNonSapronaks(where: [DataNonSapronakWhereUniqueInput!]!): [DataNonSapronak]
   createUser(data: UserCreateInput!): User
   createUsers(data: [UserCreateInput!]!): [User]
   updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
@@ -307,6 +887,33 @@ type Query {
   periodes(where: PeriodeWhereInput! = {}, orderBy: [PeriodeOrderByInput!]! = [], take: Int, skip: Int! = 0): [Periode!]
   periode(where: PeriodeWhereUniqueInput!): Periode
   periodesCount(where: PeriodeWhereInput! = {}): Int
+  dataDOCS(where: DataDOCWhereInput! = {}, orderBy: [DataDOCOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataDOC!]
+  dataDOC(where: DataDOCWhereUniqueInput!): DataDOC
+  dataDOCSCount(where: DataDOCWhereInput! = {}): Int
+  sampleDOCS(where: SampleDOCWhereInput! = {}, orderBy: [SampleDOCOrderByInput!]! = [], take: Int, skip: Int! = 0): [SampleDOC!]
+  sampleDOC(where: SampleDOCWhereUniqueInput!): SampleDOC
+  sampleDOCSCount(where: SampleDOCWhereInput! = {}): Int
+  dataWeeklies(where: DataWeeklyWhereInput! = {}, orderBy: [DataWeeklyOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataWeekly!]
+  dataWeekly(where: DataWeeklyWhereUniqueInput!): DataWeekly
+  dataWeekliesCount(where: DataWeeklyWhereInput! = {}): Int
+  sampleWeeklies(where: SampleWeeklyWhereInput! = {}, orderBy: [SampleWeeklyOrderByInput!]! = [], take: Int, skip: Int! = 0): [SampleWeekly!]
+  sampleWeekly(where: SampleWeeklyWhereUniqueInput!): SampleWeekly
+  sampleWeekliesCount(where: SampleWeeklyWhereInput! = {}): Int
+  dataDailies(where: DataDailyWhereInput! = {}, orderBy: [DataDailyOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataDaily!]
+  dataDaily(where: DataDailyWhereUniqueInput!): DataDaily
+  dataDailiesCount(where: DataDailyWhereInput! = {}): Int
+  dataPanens(where: DataPanenWhereInput! = {}, orderBy: [DataPanenOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataPanen!]
+  dataPanen(where: DataPanenWhereUniqueInput!): DataPanen
+  dataPanensCount(where: DataPanenWhereInput! = {}): Int
+  dataPenjarangans(where: DataPenjaranganWhereInput! = {}, orderBy: [DataPenjaranganOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataPenjarangan!]
+  dataPenjarangan(where: DataPenjaranganWhereUniqueInput!): DataPenjarangan
+  dataPenjarangansCount(where: DataPenjaranganWhereInput! = {}): Int
+  dataSapronaks(where: DataSapronakWhereInput! = {}, orderBy: [DataSapronakOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataSapronak!]
+  dataSapronak(where: DataSapronakWhereUniqueInput!): DataSapronak
+  dataSapronaksCount(where: DataSapronakWhereInput! = {}): Int
+  dataNonSapronaks(where: DataNonSapronakWhereInput! = {}, orderBy: [DataNonSapronakOrderByInput!]! = [], take: Int, skip: Int! = 0): [DataNonSapronak!]
+  dataNonSapronak(where: DataNonSapronakWhereUniqueInput!): DataNonSapronak
+  dataNonSapronaksCount(where: DataNonSapronakWhereInput! = {}): Int
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int

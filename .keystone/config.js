@@ -63,7 +63,7 @@ var lists = {
     },
     hooks: {
       resolveInput: async ({ resolvedData, context }) => {
-        const kandangId = resolvedData.kandang.connect.id;
+        const kandangId = resolvedData.kandang?.connect?.id;
         if (!kandangId) {
           return resolvedData;
         }
@@ -86,6 +86,101 @@ var lists = {
         }
         return resolvedData;
       }
+    }
+  }),
+  DataDOC: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      jumlahDOC: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      tipeDOC: (0, import_fields.text)({ validation: { isRequired: true } }),
+      kematianDOC: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      bobotBox: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      kodeBox: (0, import_fields.text)({ validation: { isRequired: true } }),
+      samples: (0, import_fields.relationship)({ ref: "SampleDOC", many: true })
+    }
+  }),
+  SampleDOC: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      bobot: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  DataWeekly: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      lantai: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      sekat: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      samples: (0, import_fields.relationship)({ ref: "SampleWeekly", many: true })
+    }
+  }),
+  SampleWeekly: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      bobot: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  DataDaily: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      waktu: (0, import_fields.select)({
+        type: "enum",
+        options: [
+          { label: "siang", value: "siang" },
+          { label: "malam", value: "malam" }
+        ],
+        defaultValue: "siang",
+        validation: { isRequired: true },
+        ui: { displayMode: "select" }
+      }),
+      jumlahMati: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      jumlahAfkir: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  DataPanen: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      namaPelanggan: (0, import_fields.text)({ validation: { isRequired: true } }),
+      noSPPA: (0, import_fields.text)({ validation: { isRequired: true } }),
+      noTruck: (0, import_fields.text)({ validation: { isRequired: true } }),
+      namaPengemudi: (0, import_fields.text)({ validation: { isRequired: true } }),
+      jumlahAyam: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      bobot: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  DataPenjarangan: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      namaPelanggan: (0, import_fields.text)({ validation: { isRequired: true } }),
+      noSPPA: (0, import_fields.text)({ validation: { isRequired: true } }),
+      noTruck: (0, import_fields.text)({ validation: { isRequired: true } }),
+      namaPengemudi: (0, import_fields.text)({ validation: { isRequired: true } }),
+      jumlahAyam: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      bobot: (0, import_fields.integer)({ validation: { isRequired: true } })
+    }
+  }),
+  DataSapronak: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      jumlahPakan: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      namaObat: (0, import_fields.text)({ validation: { isRequired: true } }),
+      jumlahObat: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      satuan: (0, import_fields.text)({ validation: { isRequired: true } })
+    }
+  }),
+  DataNonSapronak: (0, import_core.list)({
+    access: import_access.allowAll,
+    fields: {
+      periode: (0, import_fields.relationship)({ ref: "Periode" }),
+      jenis: (0, import_fields.text)({ validation: { isRequired: true } }),
+      jumlah: (0, import_fields.integer)({ validation: { isRequired: true } }),
+      satuan: (0, import_fields.text)({ validation: { isRequired: true } })
     }
   }),
   User: (0, import_core.list)({
